@@ -1,0 +1,322 @@
+/* ==========================================================================
+   J92 Labs — visual/interaction upgrade layer
+   Loaded after style.css. Purely presentational: no rule here changes any
+   text, heading, label, or URL — it only changes how existing markup moves,
+   layers, and responds to scroll/pointer.
+   ========================================================================== */
+
+/* Base overrides for the persistent ambient background trick -------------- */
+
+html {
+  background: var(--bg);
+}
+
+body {
+  background: transparent;
+  overflow-x: hidden;
+}
+
+/* Respect reduced motion globally: kill non-essential animation/transition
+   duration site-wide as a safety net (JS also skips setting these up). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Persistent site-wide ambient layer (behind every page, every section)
+   ========================================================================== */
+
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-bg canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;
+}
+
+.ambient-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.3;
+  will-change: transform;
+}
+
+.ambient-glow--orange {
+  width: 620px;
+  height: 620px;
+  top: -220px;
+  right: -180px;
+  background: radial-gradient(circle, rgba(232, 100, 26, 0.55), transparent 70%);
+  animation: ambient-drift-a 38s ease-in-out infinite;
+}
+
+.ambient-glow--purple {
+  width: 720px;
+  height: 720px;
+  bottom: -260px;
+  left: -220px;
+  background: radial-gradient(circle, rgba(120, 55, 190, 0.45), transparent 70%);
+  animation: ambient-drift-b 46s ease-in-out infinite;
+}
+
+.ambient-grid {
+  position: absolute;
+  inset: -10%;
+  opacity: 0.05;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 0%, transparent 75%);
+}
+
+@keyframes ambient-drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(-50px, 70px, 0); }
+}
+
+@keyframes ambient-drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(60px, -50px, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-glow {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   Hero scene (per-section layered background — hero-scene.php partial)
+   ========================================================================== */
+
+.hero-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Sections that host a hero-scene need a positioning context + their real
+   content raised above it. .hero and .svc-hero already had these in
+   style.css; .page-hero did not, so we add it here. */
+.page-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero .container,
+.page-hero .container,
+.svc-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.scene-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.scene-floor {
+  position: absolute;
+  left: 50%;
+  bottom: -18%;
+  width: 160%;
+  height: 65%;
+  transform: translate3d(-50%, 0, 0) translateY(var(--py, 0px)) perspective(600px) rotateX(62deg);
+  background-image: linear-gradient(rgba(232, 100, 26, 0.32) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232, 100, 26, 0.32) 1px, transparent 1px);
+  background-size: 58px 58px;
+  -webkit-mask-image: linear-gradient(to top, black 0%, transparent 78%);
+  mask-image: linear-gradient(to top, black 0%, transparent 78%);
+  opacity: 0.38;
+  will-change: transform;
+}
+
+.scene-grid {
+  position: absolute;
+  inset: -15% -5%;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 46px 46px;
+  opacity: 0.07;
+  -webkit-mask-image: radial-gradient(ellipse 65% 55% at 80% 20%, black 0%, transparent 70%);
+  mask-image: radial-gradient(ellipse 65% 55% at 80% 20%, black 0%, transparent 70%);
+  transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
+  will-change: transform;
+}
+
+.scene-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  will-change: transform;
+}
+
+.scene-glow--orange {
+  width: 460px;
+  height: 460px;
+  top: 6%;
+  right: 6%;
+  background: radial-gradient(circle, rgba(232, 100, 26, 0.4), transparent 70%);
+}
+
+.scene-glow--purple {
+  width: 520px;
+  height: 520px;
+  bottom: -8%;
+  right: 22%;
+  background: radial-gradient(circle, rgba(120, 55, 190, 0.32), transparent 70%);
+}
+
+/* Compact variant (inner-page heroes) is visually quieter */
+.hero-scene--compact .scene-glow {
+  opacity: 0.7;
+}
+
+.hero-scene--compact .scene-floor {
+  opacity: 0.24;
+}
+
+/* ==========================================================================
+   Scroll indicator (homepage hero only — decorative, additive per spec)
+   ========================================================================== */
+
+.scroll-indicator {
+  position: absolute;
+  left: 24px;
+  bottom: 36px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.scroll-indicator-line {
+  position: relative;
+  width: 1px;
+  height: 40px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.scroll-indicator-line span {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(var(--orange), transparent);
+  animation: scroll-line-travel 2.2s ease-in-out infinite;
+}
+
+@keyframes scroll-line-travel {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(140px); }
+}
+
+@media (max-width: 900px) {
+  .scroll-indicator {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-indicator-line span {
+    animation: none;
+    top: 0;
+    height: 100%;
+    background: var(--orange);
+    opacity: 0.5;
+  }
+}
+
+/* ==========================================================================
+   Scroll-reveal base state
+   Only applied by JS (adds .reveal-init before observing, then swaps to
+   .reveal-in). If JS never runs, [data-reveal] elements keep their normal
+   default (visible) state — progressive enhancement.
+   ========================================================================== */
+
+[data-reveal].reveal-init {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+[data-reveal].reveal-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Interactive card tilt support
+   JS sets rotateX/rotateY/translateY inline via GSAP; these rules just give
+   the browser a hint and keep cards readable while tilted.
+   ========================================================================== */
+
+.tilt-card {
+  transform-style: preserve-3d;
+  /* Includes background 0.2s ease to preserve .service-card's own hover-fill
+     transition (style.css) — this shorthand would otherwise replace it
+     outright, since both rules share the same specificity and this file
+     loads after style.css. */
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, background 0.2s ease,
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tilt-card.tilt-active {
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.55);
+}
+
+/* ==========================================================================
+   Section transition glow (subtle continuity between sections)
+   ========================================================================== */
+
+.about-section,
+.stats-strip,
+#packages,
+#why-us {
+  position: relative;
+}
+
+/* ==========================================================================
+   Reduced motion / no-JS safety
+   ========================================================================== */
+
+.reduced-motion .hero-scene,
+.reduced-motion .ambient-bg {
+  animation: none !important;
+}
+
+.reduced-motion .scene-floor,
+.reduced-motion .scene-grid,
+.reduced-motion .scene-glow,
+.reduced-motion .ambient-glow {
+  transform: none !important;
+}
