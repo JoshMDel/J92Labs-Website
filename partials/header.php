@@ -36,6 +36,7 @@ $site_description = isset($meta_description)
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/animations.css">
 <!-- Microsoft Clarity -->
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -46,6 +47,15 @@ $site_description = isset($meta_description)
 </script>
 </head>
 <body>
+<!-- Persistent decorative background, shared across every page/section.
+     Purely visual: aria-hidden, no content, sits behind everything via a
+     fixed position + negative z-index (see animations.css). -->
+<div class="ambient-bg" aria-hidden="true">
+  <canvas></canvas>
+  <div class="ambient-glow ambient-glow--orange"></div>
+  <div class="ambient-glow ambient-glow--purple"></div>
+  <div class="ambient-grid"></div>
+</div>
 <header class="site-header">
   <div class="container">
     <a class="logo" href="/" aria-label="J92 Labs home">

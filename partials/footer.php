@@ -35,5 +35,13 @@
   </div>
 </footer>
 <script src="/assets/js/main.js"></script>
+<!-- GSAP + ScrollTrigger: power the scroll parallax, scroll-reveal, and
+     pointer interaction in animations.js. If either fails to load, every
+     script below checks for their presence first and skips straight to the
+     already-visible, fully functional page — nothing here is required for
+     basic site functionality. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="/assets/js/animations.js"></script>
 </body>
 </html>

@@ -5,11 +5,12 @@ require $_SERVER['DOCUMENT_ROOT'] . '/partials/header.php';
 ?>
 
 <section class="page-hero">
+  <?php $scene_variant = 'compact'; require $_SERVER['DOCUMENT_ROOT'] . '/partials/hero-scene.php'; ?>
   <div class="container">
     <p class="breadcrumbs"><a href="/">Home</a> / Blogs</p>
-    <div class="eyebrow"><span class="line"></span>Blogs</div>
-    <h1>Insights On SEO, Websites &amp; Growing Your Business</h1>
-    <p class="lead">Practical, no-nonsense articles for small businesses in Oudtshoorn and the Eden Karoo region.</p>
+    <div class="eyebrow" data-reveal><span class="line"></span>Blogs</div>
+    <h1 data-reveal>Insights On SEO, Websites &amp; Growing Your Business</h1>
+    <p class="lead" data-reveal>Practical, no-nonsense articles for small businesses in Oudtshoorn and the Eden Karoo region.</p>
   </div>
 </section>
 
@@ -19,7 +20,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/partials/header.php';
       New posts: add a card below (copy the .card block) once articles are ready,
       or wire this section up to a simple JSON/markdown-driven list later.
     -->
-    <div class="card" style="max-width: 620px;">
+    <div class="card" style="max-width: 620px;" data-reveal>
       <h3>New articles coming soon</h3>
       <div class="rule"></div>
       <p>We're working on our first set of posts covering local SEO, website performance, and practical growth tips for small businesses. Check back soon &mdash; or <a href="/contact_us/" style="color: var(--orange);">get in touch</a> if you have a question you'd like us to cover.</p>

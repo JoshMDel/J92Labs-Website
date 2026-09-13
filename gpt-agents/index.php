@@ -14,23 +14,24 @@ $agents = [
 ?>
 
 <section class="page-hero">
+  <?php $scene_variant = 'compact'; require $_SERVER['DOCUMENT_ROOT'] . '/partials/hero-scene.php'; ?>
   <div class="container">
     <p class="breadcrumbs"><a href="/">Home</a> / GPT Agents</p>
-    <div class="eyebrow"><span class="line"></span>About GPT Agents</div>
-    <h1>GPT Agents Built To Help You Work Smarter And Faster</h1>
-    <p class="lead">Explore specialized GPT Agents for SEO, content creation, marketing, research and business productivity. Find the right AI assistant for the task at hand.</p>
-    <a class="btn btn-primary" href="/contact_us/">Contact Us</a>
+    <div class="eyebrow" data-reveal><span class="line"></span>About GPT Agents</div>
+    <h1 data-reveal>GPT Agents Built To Help You Work Smarter And Faster</h1>
+    <p class="lead" data-reveal>Explore specialized GPT Agents for SEO, content creation, marketing, research and business productivity. Find the right AI assistant for the task at hand.</p>
+    <a class="btn btn-primary" href="/contact_us/" data-reveal>Contact Us</a>
   </div>
 </section>
 
 <section>
   <div class="container">
-    <div class="eyebrow"><span class="line"></span>AI Business Tools Built For Real Work</div>
-    <h2 class="section-heading">Featured GPT Agents</h2>
-    <p style="max-width:620px;">Our GPT Agents are purpose-built AI assistants designed to handle specific tasks with precision. From SEO and marketing to content and strategy, each tool helps you save time, improve results, and grow your business.</p>
-    <div class="content-grid" style="margin-top: 40px;">
+    <div class="eyebrow" data-reveal><span class="line"></span>AI Business Tools Built For Real Work</div>
+    <h2 class="section-heading" data-reveal>Featured GPT Agents</h2>
+    <p style="max-width:620px;" data-reveal>Our GPT Agents are purpose-built AI assistants designed to handle specific tasks with precision. From SEO and marketing to content and strategy, each tool helps you save time, improve results, and grow your business.</p>
+    <div class="content-grid" style="margin-top: 40px;" data-reveal-group>
       <?php foreach ($agents as $agent): ?>
-      <div class="card">
+      <div class="card" data-reveal>
         <h3><?php echo htmlspecialchars($agent['name']); ?></h3>
         <div class="rule"></div>
         <p><?php echo htmlspecialchars($agent['desc']); ?></p>
@@ -42,14 +43,14 @@ $agents = [
 
 <section class="about-section">
   <div class="container">
-    <div class="eyebrow"><span class="line"></span>Why Choose Us</div>
-    <h2 class="section-heading">Built For Real Business Results</h2>
-    <p style="max-width:620px;">Our GPT agents are designed to solve real business problems, save time and deliver measurable impact across your entire workflow. Practical, powerful and built for growth.</p>
+    <div class="eyebrow" data-reveal><span class="line"></span>Why Choose Us</div>
+    <h2 class="section-heading" data-reveal>Built For Real Business Results</h2>
+    <p style="max-width:620px;" data-reveal>Our GPT agents are designed to solve real business problems, save time and deliver measurable impact across your entire workflow. Practical, powerful and built for growth.</p>
   </div>
 </section>
 
 <section class="cta-strip">
-  <div class="container">
+  <div class="container" data-reveal>
     <h2>Want a GPT Agent built for your business?</h2>
     <p>Tell us the task you want to speed up and we'll help you find or build the right agent for it.</p>
     <a class="btn btn-primary" href="/contact_us/">Get a Quote</a>
