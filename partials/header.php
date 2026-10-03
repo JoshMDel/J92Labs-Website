@@ -47,6 +47,9 @@ $site_description = isset($meta_description)
 </script>
 </head>
 <body>
+<!-- Thin scroll-progress indicator — width is driven by the --scroll-progress
+     CSS variable that assets/js/animations.js already maintains on <html>. -->
+<div class="scroll-progress-bar" aria-hidden="true"></div>
 <!-- Persistent decorative background, shared across every page/section.
      Purely visual: aria-hidden, no content, sits behind everything via a
      fixed position + negative z-index (see animations.css). -->
